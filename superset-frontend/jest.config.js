@@ -31,14 +31,17 @@ const moduleNameMapper = {
 };
 
 module.exports = {
-  testRegex: '\\/(spec|src)\\/.*(_spec|\\.test)\\.(j|t)sx?$',
+  testRegex: '\\/(spec|src|plugins|packages)\\/.*(_spec|\\.test)\\.(j|t)sx?$',
   testPathIgnorePatterns: [
     'packages\\/generator-superset\\/.*',
     '/node_modules/',
+    'packages/superset-ui-core/test/chart/components/ChartDataProvider.test.tsx',
+    'packages/superset-ui-core/test/chart/components/reactify.test.tsx',
   ],
   moduleNameMapper,
   testEnvironment: 'jsdom',
   modulePathIgnorePatterns: ['<rootDir>/temporary_superset_ui'],
+  setupFiles: ['<rootDir>/spec/helpers/setupPlugins.ts'],
   setupFilesAfterEnv: ['<rootDir>/spec/helpers/setup.ts'],
   testURL: 'http://localhost',
   collectCoverageFrom: [
@@ -77,22 +80,11 @@ module.exports = {
   },
   projects: [
     '<rootDir>',
-    // {
-    //   displayName: 'generator-superset',
-    //   rootDir: '<rootDir>/packages/generator-superset',
-    //   testRegex: 'packages\\/generator-superset.*\\.test\\.(j|t)sx?$',
-    //   testEnvironment: 'node',
-    // },
     {
-      displayName: 'plugins',
-      testRegex: '\\/(plugins|packages)\\/.*(_spec|\\.test)\\.(j|t)sx?$',
-      testPathIgnorePatterns: [
-        'packages\\/generator-superset\\/.*',
-        '/node_modules/',
-      ],
-      setupFiles: ['<rootDir>/spec/helpers/setupPlugins.ts'],
-      modulePathIgnorePatterns: ['<rootDir>/temporary_superset_ui'],
-      moduleNameMapper,
+      displayName: 'generator-superset',
+      rootDir: '<rootDir>/packages/generator-superset',
+      testRegex: 'packages\\/generator-superset.*\\.test\\.(j|t)sx?$',
+      testEnvironment: 'node',
     },
   ],
 };
